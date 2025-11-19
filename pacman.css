@@ -5,4 +5,8 @@ body {
 
 #board {
     background-color: black;
+    width: 100%;
+    height: auto;
+    max-width: 600px; /* supaya tidak kegedean di laptop */
+    touch-action: none; /* penting agar HP tidak scroll waktu swipe */
 }

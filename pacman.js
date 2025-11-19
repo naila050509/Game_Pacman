@@ -349,3 +349,48 @@ class Block {
         this.y = this.startY;
     }
 };
+
+// ==========================
+// TOUCH CONTROL FOR MOBILE
+// ==========================
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+board.addEventListener("touchstart", (e) => {
+    const touch = e.touches[0];
+    const rect = board.getBoundingClientRect();
+
+    touchStartX = touch.clientX - rect.left;
+    touchStartY = touch.clientY - rect.top;
+});
+
+board.addEventListener("touchend", (e) => {
+    const touch = e.changedTouches[0];
+    const rect = board.getBoundingClientRect();
+
+    const endX = touch.clientX - rect.left;
+    const endY = touch.clientY - rect.top;
+
+    const dx = endX - touchStartX;
+    const dy = endY - touchStartY;
+
+    // Gerakan dominan
+    if (Math.abs(dx) > Math.abs(dy)) {
+        if (dx > 20) {
+            pacman.updateDirection('R');
+            pacman.image = pacmanRightImage;
+        } else if (dx < -20) {
+            pacman.updateDirection('L');
+            pacman.image = pacmanLeftImage;
+        }
+    } else {
+        if (dy > 20) {
+            pacman.updateDirection('D');
+            pacman.image = pacmanDownImage;
+        } else if (dy < -20) {
+            pacman.updateDirection('U');
+            pacman.image = pacmanUpImage;
+        }
+    }
+});
